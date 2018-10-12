@@ -8,15 +8,15 @@ struct node {
 };
 
 void print_list(struct node *current){
-  printf("[%d", current -> i);
+  printf("[%s - %s", current -> artist, surrent -> name);
   while(current = current -> next){
-    printf(", %d", current -> i);
+    printf(", %s - %s", current -> artist, surrent -> name);
   }
   printf("]\n");
 }
 
 //Add alphabetical sorting
-struct node * insert_front(struct node *head, char *name, char *artist){
+struct node *insert_front(struct node *head, char *name, char *artist){
   struct node * new = malloc(sizeof(struct node));
   new -> next = head -> next;
   new -> name = head -> name;
@@ -27,7 +27,9 @@ struct node * insert_front(struct node *head, char *name, char *artist){
   return head;
 }
 
-struct node * free_list(struct node *node){
+char *find_artist(struct node *head);
+
+struct node *free_list(struct node *node){
   if(node -> next){
     free_list(node -> next);
     free(node -> next);
