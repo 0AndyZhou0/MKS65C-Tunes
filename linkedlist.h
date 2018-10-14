@@ -16,7 +16,6 @@ void print_list(struct song_node *current){
   printf("]\n");
 }
 
-//Add alphabetical sorting
 struct song_node *insert_front(struct song_node *head, char *artist, char *song){
   struct song_node * new = malloc(sizeof(struct song_node));
   strcpy(new -> artist, head -> artist);
@@ -26,6 +25,32 @@ struct song_node *insert_front(struct song_node *head, char *artist, char *song)
   strcpy(head -> song, song);
   head -> next = new;
   return head;
+}
+
+struct song_node *insert_ordered(struct song_node *head, char *artist, char *song){
+  struct song_node *temp = head;
+  while(head && strcasecmp(head -> artist, artist) < 0){
+    head = head -> next;
+  }
+  if(head && strcasecmp(head -> artist, artist) == 0){
+    while(head && strcasecmp(head -> song, song) < 0){
+      head = head -> next;
+    }
+  }
+  if(!head){
+    head = temp;
+    while(head -> next){
+      head = head -> next;
+    }
+    struct song_node * new = malloc(sizeof(struct song_node));
+    strcpy(new -> artist, artist);
+    strcpy(new -> song, song);
+    new -> next = 0;
+    head -> next = new;
+  }else{
+    head = insert_front(head, artist, song);
+  }
+  return temp;
 }
 
 char *find_artist(struct song_node *head, char *artist){
