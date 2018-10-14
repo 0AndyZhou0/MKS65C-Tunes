@@ -3,10 +3,14 @@
 #include "linkedlist.h"
 
 int main(){
-  struct song_node this_is_library;
-  this_is_library.next = 0;
-  strcpy(this_is_library.artist, "YUC'E");
-  strcpy(this_is_library.song, "Future Candy");
-  print_list(&this_is_library);
+  struct song_node library;
+  library.next = 0;
+  strcpy(library.artist, "YUC'E");
+  strcpy(library.song, "Future Candy");
+  print_list(&library);
+  library = *insert_front(&library, "succducc", "me & u");
+  print_list(&library);
+  library = *insert_front(&library, "Igorrr & Ruby My Dear", "Maigre");
+  print_list(&library);
   return 0;
 }
