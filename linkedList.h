@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct node {
+struct song_node {
   char name[100];
   char artist[100];
   struct node *next;
@@ -27,7 +27,15 @@ struct node *insert_front(struct node *head, char *name, char *artist){
   return head;
 }
 
-char *find_artist(struct node *head);
+char *find_artist(struct node *head, char *artist){
+  while(head){
+    if(head -> artist == artist){
+      return head -> song;
+    }
+    head = head -> next
+  }
+  return 0;
+}
 
 struct node *free_list(struct node *node){
   if(node -> next){
