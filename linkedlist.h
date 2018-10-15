@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-struct song_node {
+struct song_node{
   char song[100];
   char artist[100];
   struct song_node *next;
@@ -14,6 +14,14 @@ void print_list(struct song_node *current){
     printf(", \n%s - %s", current -> artist, current -> song);
   }
   printf("]\n");
+}
+
+struct song_node *make_list(char *artist, char *song){
+  struct song_node *library = malloc(sizeof(struct song_node));
+  library -> next = 0;
+  strcpy(library -> artist, artist);
+  strcpy(library -> song, song);
+  return library;
 }
 
 struct song_node *insert_front(struct song_node *head, char *artist, char *song){
@@ -29,28 +37,38 @@ struct song_node *insert_front(struct song_node *head, char *artist, char *song)
 
 struct song_node *insert_ordered(struct song_node *head, char *artist, char *song){
   struct song_node *temp = head;
-  while(head && strcasecmp(head -> artist, artist) < 0){
-    head = head -> next;
+  while(temp && strcasecmp(temp -> artist, artist) < 0){
+    temp = temp -> next;
   }
-  if(head && strcasecmp(head -> artist, artist) == 0){
-    while(head && strcasecmp(head -> song, song) < 0){
-      head = head -> next;
+  if(temp && strcasecmp(temp -> artist, artist) == 0){
+    while(temp && strcasecmp(temp -> song, song) < 0){
+      temp = temp -> next;
     }
   }
-  if(!head){
-    head = temp;
-    while(head -> next){
-      head = head -> next;
+  if(!temp){
+    temp = head;
+    while(temp -> next){
+      temp = temp -> next;
     }
     struct song_node * new = malloc(sizeof(struct song_node));
     strcpy(new -> artist, artist);
     strcpy(new -> song, song);
     new -> next = 0;
-    head -> next = new;
+    temp -> next = new;
   }else{
-    head = insert_front(head, artist, song);
+    temp = insert_front(temp, artist, song);
   }
-  return temp;
+  return head;
+}
+
+char *find_artist_song(struct song_node *head, char *artist, char *song){
+  while(head){
+    if(head -> artist == artist && head -> song == song){
+      return head -> song;
+    }
+    head = head -> next;
+  }
+  return 0;
 }
 
 char *find_artist(struct song_node *head, char *artist){
@@ -61,6 +79,25 @@ char *find_artist(struct song_node *head, char *artist){
     head = head -> next;
   }
   return 0;
+}
+
+struct song_node *remove_artist_song(struct song_node *head, char *artist, char *song){
+  struct song_node *temp = head;
+  struct song_node *next_song;
+  int i = 0;
+  while(temp){
+    if(temp -> artist == artist && temp -> song == song){
+      next_song = temp -> next;
+    }
+    temp = temp -> next;
+  }
+  temp = head;
+  for(i;i > 1;i--){
+    temp = temp -> next;
+  }
+  free(temp -> next);
+  temp -> next = next_song;
+  return head;
 }
 
 struct song_node *free_list(struct song_node *node){
