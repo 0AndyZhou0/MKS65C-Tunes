@@ -91,6 +91,11 @@ struct song_node *remove_artist_song(struct song_node *head, char *artist, char 
     }
     temp = temp -> next;
   }
+  if(temp = head){
+    head = head -> next;
+    free(temp);
+    return head;
+  }
   temp = head;
   for(i;i > 1;i--){
     temp = temp -> next;

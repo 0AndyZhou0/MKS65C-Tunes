@@ -34,6 +34,33 @@ void add_song(struct song_node **library, char *artist, char *song){
     i++;
   }
   if(i == 26){
-    library[i] = insert_ordered(library[26],artist,song);
+    if(library[26] -> artist[0] != 0){
+      library[26] = insert_ordered(library[26],artist,song);
+    }else{
+      library[26] = free_list(library[26]);
+      library[26] = make_list(artist, song);
+    }
   }
+}
+
+void remove_song(struct song_node **library, char *artist, char *song){
+  int i = 0;
+  while(i < 26){
+    if(!strncasecmp(alphabet[i],artist,1)){
+      library[i] = remove_artist_song(library[i], artist, song);
+      i = 100;
+    }
+    i++;
+  }
+  if(i == 26){
+    library[26] = remove_artist_song(library[26], artist, song);
+  }
+}
+
+void clear_library(struct song_node **library){
+  for(int i = 0;i < 27;i++){
+    library[i] = free_list(library[i]);
+    free(library[i]);
+  }
+  make_library(library);
 }
