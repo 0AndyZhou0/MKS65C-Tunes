@@ -61,20 +61,20 @@ struct song_node *insert_ordered(struct song_node *head, char *artist, char *son
   return head;
 }
 
-char *find_artist_song(struct song_node *head, char *artist, char *song){
+struct song_node *find_artist_song(struct song_node *head, char *artist, char *song){
   while(head){
     if(head -> artist == artist && head -> song == song){
-      return head -> song;
+      return head;
     }
     head = head -> next;
   }
   return 0;
 }
 
-char *find_artist(struct song_node *head, char *artist){
+struct song_node *find_artist(struct song_node *head, char *artist){
   while(head){
     if(head -> artist == artist){
-      return head -> song;
+      return head;
     }
     head = head -> next;
   }
@@ -83,6 +83,11 @@ char *find_artist(struct song_node *head, char *artist){
 
 struct song_node *remove_artist_song(struct song_node *head, char *artist, char *song){
   struct song_node *temp = head;
+  if(head -> artist == artist && head -> song == song){
+    head = head -> next;
+    free(temp);
+    return head;
+  }
   struct song_node *next_song;
   int i = 0;
   while(temp){
@@ -90,11 +95,6 @@ struct song_node *remove_artist_song(struct song_node *head, char *artist, char 
       next_song = temp -> next;
     }
     temp = temp -> next;
-  }
-  if(temp = head){
-    head = head -> next;
-    free(temp);
-    return head;
   }
   temp = head;
   for(i;i > 1;i--){
