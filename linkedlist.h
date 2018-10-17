@@ -83,25 +83,26 @@ struct song_node *find_artist(struct song_node *head, char *artist){
 
 struct song_node *remove_artist_song(struct song_node *head, char *artist, char *song){
   struct song_node *temp = head;
-  if(head -> artist == artist && head -> song == song){
+  if(!strcmp(head -> artist, artist) && !strcmp(head -> song, song)){
     head = head -> next;
     free(temp);
     return head;
   }
+  temp = temp -> next;
+  struct song_node *temp2 = head;
   struct song_node *next_song;
-  int i = 0;
-  while(temp){
-    if(temp -> artist == artist && temp -> song == song){
+  while(temp && (strcmp(temp -> artist, artist) || strcmp(temp -> song, song))){
+    if(!strcmp(temp -> artist, artist) && !strcmp(temp -> song, song)){
       next_song = temp -> next;
+    }else{
+      temp2 = temp;
+      temp = temp -> next;
     }
-    temp = temp -> next;
   }
-  temp = head;
-  for(i;i > 1;i--){
-    temp = temp -> next;
+  if(temp2 -> next != 0){
+    free(temp2 -> next);
+    temp2 -> next = next_song;
   }
-  free(temp -> next);
-  temp -> next = next_song;
   return head;
 }
 
