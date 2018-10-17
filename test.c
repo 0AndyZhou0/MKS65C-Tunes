@@ -4,6 +4,7 @@
 #include "library.h"
 
 int main(){
+  /*
   struct song_node library;
   library = *make_list("YUC'E","Future Candy");
   //print_list(&library);
@@ -24,5 +25,14 @@ int main(){
   library = *insert_ordered(&library, "A", "E");
   library = *insert_ordered(&library, "J", "E");
   print_list(&library);
+  library = *remove_artist_song(&library, "J", "E");
+  library = *remove_artist_song(&library, "A", "E");
+  library = *remove_artist_song(&library, "Z", "E");
+  print_list(&library);
+  */
+  struct song_node *library[27];
+  make_library(library);
+  add_song(library,"YUC'E","Future Candy");
+  print_library(library);
   return 0;
 }
