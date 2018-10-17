@@ -33,6 +33,10 @@ int main(){
   struct song_node *library[27];
   make_library(library);
   add_song(library,"YUC'E","Future Candy");
+  add_song(library,"succducc", "me & u");
+  add_song(library,"Camellia", "Exit This Earth's Atmosphere");
+  add_song(library,"Igorrr & Ruby My Dear", "Maigre");
+  add_song(library,"YUC'E", "Future Cake");
   print_library(library);
   return 0;
 }
