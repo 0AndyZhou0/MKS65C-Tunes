@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 struct song_node{
   char song[100];
@@ -63,7 +64,7 @@ struct song_node *insert_ordered(struct song_node *head, char *artist, char *son
 
 struct song_node *find_artist_song(struct song_node *head, char *artist, char *song){
   while(head){
-    if(head -> artist == artist && head -> song == song){
+    if(!strcasecmp(head -> artist, artist) && !strcasecmp(head -> song, song)){
       return head;
     }
     head = head -> next;
@@ -73,7 +74,7 @@ struct song_node *find_artist_song(struct song_node *head, char *artist, char *s
 
 struct song_node *find_artist(struct song_node *head, char *artist){
   while(head){
-    if(head -> artist == artist){
+    if(!strcasecmp(head -> artist, artist)){
       return head;
     }
     head = head -> next;
@@ -104,6 +105,22 @@ struct song_node *remove_artist_song(struct song_node *head, char *artist, char 
     temp2 -> next = next_song;
   }
   return head;
+}
+
+struct song_node *random_song(struct song_node *node){
+  srand(time(NULL));
+  struct song_node *temp = node;
+  int i = 0;
+  while(temp){
+    temp = temp -> next;
+    i++;
+  }
+  temp = node;
+  int r = rand() % (i-1);
+  for(;r > 0;r--){
+    temp = temp -> next;
+  }
+  return temp;
 }
 
 struct song_node *free_list(struct song_node *node){
