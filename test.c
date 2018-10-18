@@ -58,10 +58,17 @@ int main(){
   */
 
   //Print random lists
-  print_shuffle(library);
+  //print_shuffle(library);
 
-  //struct song_node *song = find_song(library,"YUC'E","Future Candy");
-  //printf("%s - %s\n", song -> artist, song -> song);
+  //Searching
+  /*
+  struct song_node *song = find_song(library,"YUC'E","Future Candy");
+  printf("%s - %s\n", song -> artist, song -> song);
+  song = find_song(library,"Z","Z");
+  printf("%s - %s\n", song -> artist, song -> song);
+  song = find_song(library,"Banana","Song");
+  printf("%s\n", song);
+  */
   free_library(library);
   return 0;
 }
