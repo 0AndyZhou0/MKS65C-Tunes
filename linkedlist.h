@@ -108,16 +108,21 @@ struct song_node *remove_artist_song(struct song_node *head, char *artist, char 
 }
 
 struct song_node *random_song(struct song_node *node){
-  srand(time(NULL));
   struct song_node *temp = node;
   int i = 0;
   while(temp){
     temp = temp -> next;
     i++;
   }
+  if(node -> artist[0] == 0){
+    return 0;
+  }
+  if(i == 1){
+    return node;
+  }
   temp = node;
-  int r = rand() % (i-1);
-  for(;r > 0;r--){
+  int r = rand() % (i);
+  for(;r >= 0;r--){
     temp = temp -> next;
   }
   return temp;

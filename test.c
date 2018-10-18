@@ -5,7 +5,7 @@
 #include "library.h"
 
 int main(){
-  //srand(time(NULL));
+  srand(time(0));
   struct song_node *library[27];
   make_library(library);
 
@@ -50,10 +50,15 @@ int main(){
   */
 
   //Print artists
+  /*
   print_artist(library,"YUC'E");
   print_artist(library,"Camellia");
   print_artist(library,"Z");
   print_artist(library,"Jones");
+  */
+
+  //Print random lists
+  print_shuffle(library);
 
   //struct song_node *song = find_song(library,"YUC'E","Future Candy");
   //printf("%s - %s\n", song -> artist, song -> song);
